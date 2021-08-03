@@ -21,7 +21,7 @@
         if (si?.type == Material.ENCHANTED_BOOK) {
             val sim = si.itemMeta as EnchantmentStorageMeta
             var conflict = false
-            fi?.itemMeta?.enchants?.forEach { (t, _) ->
+            fi?.itemMeta?.com.koisv.customenchants.enchants?.forEach { (t, _) ->
                 if (!conflict) conflict = sim.hasStoredEnchant(t)
             }
             if (!conflict) {

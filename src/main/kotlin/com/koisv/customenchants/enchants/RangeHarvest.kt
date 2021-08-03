@@ -1,6 +1,6 @@
-package enchants
+package com.koisv.customenchants.enchants
 
-import Main
+import com.koisv.customenchants.Main
 import io.papermc.paper.enchantments.EnchantmentRarity
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
@@ -12,14 +12,14 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 
 
-class Rangesoil(id: Int) : Enchantment(NamespacedKey(Main.instance,id.toString())) {
+class RangeHarvest(id: Int) : Enchantment(NamespacedKey(Main.instance,id.toString())) {
 
     override fun getKey(): NamespacedKey {
-        return NamespacedKey(Main.instance,200.toString())
+        return NamespacedKey(Main.instance,201.toString())
     }
 
     override fun getName(): String {
-        return "Rangesoil"
+        return "RangeHarvest"
     }
 
     override fun getMaxLevel(): Int {
@@ -56,7 +56,7 @@ class Rangesoil(id: Int) : Enchantment(NamespacedKey(Main.instance,id.toString()
     }
 
     override fun displayName(level: Int): Component {
-        return Component.text().content("범위 경작 Lv.$level").build()
+        return Component.text().content("범위 수확 Lv.$level").build()
     }
 
     override fun isTradeable(): Boolean {

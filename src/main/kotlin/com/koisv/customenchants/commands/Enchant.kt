@@ -1,7 +1,7 @@
-package commands
+package com.koisv.customenchants.commands
 
-import RangeHarvest
-import RangeSoil
+import com.koisv.customenchants.RangeHarvest
+import com.koisv.customenchants.RangeSoil
 import io.github.monun.kommand.node.LiteralNode
 import org.bukkit.Material
 

@@ -1,4 +1,4 @@
-package commands
+package com.koisv.customenchants.commands
 
 import io.github.monun.kommand.node.LiteralNode
 import org.bukkit.Material

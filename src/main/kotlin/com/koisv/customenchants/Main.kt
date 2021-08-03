@@ -1,5 +1,7 @@
-import enchants.RangeHarvest
-import enchants.Rangesoil
+package com.koisv.customenchants
+
+import com.koisv.customenchants.enchants.RangeHarvest
+import com.koisv.customenchants.enchants.Rangesoil
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.plugin.java.JavaPlugin
 import java.lang.reflect.Field

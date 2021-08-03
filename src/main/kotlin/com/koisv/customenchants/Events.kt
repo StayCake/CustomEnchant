@@ -1,3 +1,5 @@
+package com.koisv.customenchants
+
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.block.data.Ageable
