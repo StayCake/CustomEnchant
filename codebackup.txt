@@ -1,0 +1,110 @@
+/*@EventHandler
+    private fun crafting(e: InventoryClickEvent) {
+        if (e.clickedInventory?.type == InventoryType.ANVIL) {
+            val anvil = e.clickedInventory as AnvilInventory
+            if (anvil.result != null && e.slot == 2) {
+                e.isCancelled = true
+                val cp = e.whoClicked as Player
+                cp.setItemOnCursor(anvil.result)
+                anvil.firstItem = ItemStack(Material.AIR)
+                anvil.secondItem = ItemStack(Material.AIR)
+                anvil.result = ItemStack(Material.AIR)
+                cp.playSound(cp.location,Sound.BLOCK_ANVIL_USE,1F,1F)
+            }
+        }
+    }
+
+    @EventHandler
+    private fun anvilcraft(e: PrepareAnvilEvent) {
+        val fi = e.inventory.firstItem
+        val si = e.inventory.secondItem
+        if (si?.type == Material.ENCHANTED_BOOK) {
+            val sim = si.itemMeta as EnchantmentStorageMeta
+            var conflict = false
+            fi?.itemMeta?.enchants?.forEach { (t, _) ->
+                if (!conflict) conflict = sim.hasStoredEnchant(t)
+            }
+            if (!conflict) {
+                if (
+                    fi?.type == Material.WOODEN_HOE
+                    || fi?.type == Material.STONE_HOE
+                    || fi?.type == Material.GOLDEN_HOE
+                    || fi?.type == Material.IRON_HOE
+                    || fi?.type == Material.DIAMOND_HOE
+                    || fi?.type == Material.NETHERITE_HOE
+                ) {
+                    if (sim.hasStoredEnchant(RangeSoil)) {
+                        val lv = sim.getStoredEnchantLevel(RangeSoil)
+                        e.result = ItemStack(fi.type).apply {
+                            addEnchantment(RangeSoil,lv)
+                            if (lore() == null) {
+                                lore(
+                                    listOf(
+                                        Component.text("범위 경작 Lv.$lv")
+                                            .color(TextColor.color(Color.SILVER.asRGB()))
+                                            .decoration(TextDecoration.ITALIC,false)
+                                    )
+                                )
+                            } else {
+                                lore()?.add(
+                                    Component.text("범위 경작 Lv.$lv")
+                                        .color(TextColor.color(Color.AQUA.asRGB()))
+                                )
+                            }
+                        }
+                    } else if (fi.containsEnchantment(RangeSoil)){
+                        e.result = ItemStack(fi.type).apply {
+                            val lv = fi.getEnchantmentLevel(RangeSoil)
+                            fi.enchantments.forEach { (t, u) ->
+                                addEnchantment(t,u)
+                            }
+                            sim.storedEnchants.forEach { (t, u) ->
+                                addEnchantment(t,u)
+                            }
+                            if (lore() == null) {
+                                lore(
+                                    listOf(
+                                        Component.text("범위 경작 Lv.$lv")
+                                            .color(TextColor.color(Color.SILVER.asRGB()))
+                                            .decoration(TextDecoration.ITALIC,false)
+                                    )
+                                )
+                            } else {
+                                lore()?.add(
+                                    Component.text("범위 경작 Lv.$lv")
+                                        .color(TextColor.color(Color.AQUA.asRGB()))
+                                )
+                            }
+                            println(enchantments)
+                        }
+                    }
+                }
+            }
+        } else if (fi?.containsEnchantment(RangeSoil) == true && si?.type == Material.ENCHANTED_BOOK){
+            e.result = ItemStack(fi.type).apply {
+                val lv = fi.getEnchantmentLevel(RangeSoil)
+                fi.enchantments.forEach { (t, u) ->
+                    addEnchantment(t,u)
+                }
+                val sim = itemMeta as EnchantmentStorageMeta
+                sim.storedEnchants.forEach { (t, u) ->
+                    addEnchantment(t,u)
+                }
+                if (lore() == null) {
+                    lore(
+                        listOf(
+                            Component.text("범위 경작 Lv.$lv")
+                                .color(TextColor.color(Color.SILVER.asRGB()))
+                                .decoration(TextDecoration.ITALIC,false)
+                        )
+                    )
+                } else {
+                    lore()?.add(
+                        Component.text("범위 경작 Lv.$lv")
+                            .color(TextColor.color(Color.AQUA.asRGB()))
+                    )
+                }
+                println(enchantments)
+            }
+        }
+    }*/
