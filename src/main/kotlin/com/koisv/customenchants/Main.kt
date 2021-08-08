@@ -1,19 +1,23 @@
 package com.koisv.customenchants
 
+import com.koisv.customenchants.commands.Enchant
+import com.koisv.customenchants.commands.ShowEnchant
+import com.koisv.customenchants.commands.TestEnchant
 import com.koisv.customenchants.enchants.RangeHarvest
 import com.koisv.customenchants.enchants.Rangesoil
+import io.github.monun.kommand.kommand
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.plugin.java.JavaPlugin
 import java.lang.reflect.Field
 
-
 var RangeSoil: Rangesoil = Rangesoil(200)
 var RangeHarvest: RangeHarvest = RangeHarvest(201)
+
 class Main : JavaPlugin() {
 
     companion object {
         lateinit var instance: Main
-            private set
+        private set
     }
 
     override fun onEnable() {
@@ -33,15 +37,15 @@ class Main : JavaPlugin() {
                 e.printStackTrace()
             }
             try {
-                //Enchantment.registerEnchantment(RangeSoil)
-                //Enchantment.registerEnchantment(RangeHarvest)
+                Enchantment.registerEnchantment(RangeSoil)
+                Enchantment.registerEnchantment(RangeHarvest)
             } catch (e: IllegalArgumentException) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        /*kommand {
+        kommand {
             register("enchantbook") {
                 Enchant.register(this)
             }
@@ -51,7 +55,7 @@ class Main : JavaPlugin() {
             register("testenchant") {
                 TestEnchant.register(this)
             }
-        }*/
+        }
     }
 
     override fun onDisable() {
