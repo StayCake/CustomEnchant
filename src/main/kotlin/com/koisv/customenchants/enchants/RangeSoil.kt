@@ -32,7 +32,7 @@ class RangeSoil : KoiEnchant {
         return false
     }
 
-    override fun apply(item: ItemStack, key: NamespacedKey, level: Int): Boolean {
+    override fun apply(item: ItemStack, level: Int): Boolean {
         return if (level in minLevel..maxLevel && canEnchant.contains(item.type)) {
             item.apply {
                 itemMeta = itemMeta.apply {

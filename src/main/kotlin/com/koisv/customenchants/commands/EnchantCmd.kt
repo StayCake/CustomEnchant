@@ -11,8 +11,8 @@ object EnchantCmd {
         builder.executes {
             val p = player
             if (p.inventory.itemInMainHand.type != Material.AIR) {
-                RangeSoil().apply(p.inventory.itemInMainHand,RangeSoil().key,3)
-                RangeHarvest().apply(p.inventory.itemInMainHand,RangeHarvest().key,3)
+                RangeSoil().apply(p.inventory.itemInMainHand,3)
+                RangeHarvest().apply(p.inventory.itemInMainHand,3)
             }
         }
     }

@@ -13,7 +13,7 @@ interface KoiEnchant {
     val minLevel: Int
     val canEnchant: List<Material>
     fun conflictWith(key: NamespacedKey): Boolean
-    fun apply(item: ItemStack, key: NamespacedKey, level: Int) : Boolean
+    fun apply(item: ItemStack, level: Int) : Boolean
     fun displayName(level: Int): String {
         return "§7$name ${Utils.Misc.rNum(level)}"
     }
