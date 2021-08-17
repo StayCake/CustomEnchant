@@ -10,7 +10,9 @@ object ShowEnchant {
         builder.executes {
             val p = player
             if (p.inventory.itemInMainHand.type != Material.AIR) {
-                p.msg(p.inventory.itemInMainHand.enchantments.toString())
+                p.inventory.itemInMainHand.itemMeta.persistentDataContainer.keys.forEach {
+                    p.msg(it.toString())
+                }
             }
         }
     }

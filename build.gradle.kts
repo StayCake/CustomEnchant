@@ -12,7 +12,7 @@ repositories {
 dependencies {
     implementation("com.github.hazae41:mc-kutils:+")
     compileOnly(kotlin("stdlib")) // Kotlin
-    compileOnly("io.github.monun:kommand-api:+") // For future command creation convenience.
+    compileOnly("io.github.monun:kommand-api:2.6.3") // For future command creation convenience.
     compileOnly("io.papermc.paper:paper-api:+") // Paper Latest
 }
 
