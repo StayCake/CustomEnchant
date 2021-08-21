@@ -95,21 +95,9 @@ class RangeHarvest : KoiEnchant {
                                     ub.breakNaturally()
                                     itemUse(mh, p)
                                 }
-                                Material.SWEET_BERRY_BUSH -> {
-                                    val bd = b.blockData as Ageable
-                                    if (bd.age == 2) {
-                                        dropOut(b, bd, p, mh)
-                                    }
-                                }
-                                Material.BEETROOTS -> {
-                                    val bd = b.blockData as Ageable
-                                    if (bd.age == 3) {
-                                        dropOut(b, bd, p, mh)
-                                    }
-                                }
                                 else -> {
                                     val bd = b.blockData as Ageable
-                                    if (bd.age == 7) {
+                                    if (bd.age == bd.maximumAge) {
                                         dropOut(b, bd, p, mh)
                                     }
                                 }
