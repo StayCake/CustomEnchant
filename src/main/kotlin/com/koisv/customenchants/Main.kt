@@ -1,8 +1,6 @@
 package com.koisv.customenchants
 
 import com.koisv.customenchants.commands.EnchantCmd
-import com.koisv.customenchants.commands.ShowEnchant
-import com.koisv.customenchants.commands.TestEnchant
 import io.github.monun.kommand.kommand
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -21,14 +19,8 @@ class Main : JavaPlugin() {
         instance = this
 
         kommand {
-            register("enchantbook") {
+            register("kc") {
                 EnchantCmd.register(this)
-            }
-            register("showenchant") {
-                ShowEnchant.register(this)
-            }
-            register("testenchant") {
-                TestEnchant.register(this)
             }
         }
     }

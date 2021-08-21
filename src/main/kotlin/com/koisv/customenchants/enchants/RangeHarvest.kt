@@ -3,20 +3,15 @@ package com.koisv.customenchants.enchants
 import com.koisv.customenchants.Utils
 import com.koisv.customenchants.Utils.Misc.Companion.crop
 import com.koisv.customenchants.Utils.Misc.Companion.hoe
-import net.kyori.adventure.key.Key
-import net.kyori.adventure.sound.Sound
+import com.koisv.customenchants.Utils.Misc.Companion.itemUse
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.TextColor
-import org.bukkit.ChatColor
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
+import org.bukkit.*
 import org.bukkit.block.Block
 import org.bukkit.block.data.Ageable
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.player.PlayerHarvestBlockEvent
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.Damageable
 import org.bukkit.persistence.PersistentDataType
 
 class RangeHarvest : KoiEnchant {
@@ -61,12 +56,20 @@ class RangeHarvest : KoiEnchant {
         } else false
     }
 
-    companion object fun work(e: BlockBreakEvent) {
-        val p = e.player
-        val mh = e.player.inventory.itemInMainHand
+    override fun work(event: Any) {
+        val p = when (event) {
+            is BlockBreakEvent -> event.player
+            is PlayerHarvestBlockEvent -> event.player
+            else -> null
+        } as Player
+        val mh = p.inventory.itemInMainHand
         if (mh.itemMeta == null) return
         val pdc = mh.itemMeta.persistentDataContainer
-        val block = e.block
+        val block = when (event) {
+            is BlockBreakEvent -> event.block
+            is PlayerHarvestBlockEvent -> event.harvestedBlock
+            else -> ItemStack(Material.STONE) as Block
+        }
         if (
             pdc.has(RangeHarvest().key, PersistentDataType.INTEGER)
             && hoe.contains(mh.type)
@@ -80,31 +83,34 @@ class RangeHarvest : KoiEnchant {
                 val edz = block.z + lv
                 for (x in stx..edx) {
                     for (z in stz..edz) {
-                        val b = p.world.getBlockAt(x,block.y,z)
-                        val ub = p.world.getBlockAt(x,block.y+1,z)
+                        val b = p.world.getBlockAt(x, block.y, z)
+                        val ub = p.world.getBlockAt(x, block.y + 1, z)
                         if (crop.contains(b.type)) {
-                            e.isCancelled = true
+                            when (event) {
+                                is BlockBreakEvent -> event.isCancelled = true
+                                is PlayerHarvestBlockEvent -> event.isCancelled = true
+                            }
                             when (b.type) {
                                 Material.SUGAR_CANE -> {
                                     ub.breakNaturally()
-                                    itemUse(mh,p)
+                                    itemUse(mh, p)
                                 }
                                 Material.SWEET_BERRY_BUSH -> {
                                     val bd = b.blockData as Ageable
                                     if (bd.age == 2) {
-                                        dropOut(b,bd,p,mh)
+                                        dropOut(b, bd, p, mh)
                                     }
                                 }
                                 Material.BEETROOTS -> {
                                     val bd = b.blockData as Ageable
                                     if (bd.age == 3) {
-                                        dropOut(b,bd,p,mh)
+                                        dropOut(b, bd, p, mh)
                                     }
                                 }
                                 else -> {
                                     val bd = b.blockData as Ageable
                                     if (bd.age == 7) {
-                                        dropOut(b,bd,p,mh)
+                                        dropOut(b, bd, p, mh)
                                     }
                                 }
                             }
@@ -122,26 +128,5 @@ class RangeHarvest : KoiEnchant {
         data.age = 0
         block.blockData = data
         itemUse(item,p)
-    }
-
-    private fun itemUse(item: ItemStack,p: Player) {
-        val unbreaking = item.getEnchantmentLevel(Enchantment.DURABILITY)
-        if (Math.random() * 100 <= 100/(unbreaking + 1)) {
-            item.itemMeta = item.itemMeta.apply {
-                if (this is Damageable) {
-                    damage += 1
-                    if (item.type.maxDurability <= damage) {
-                        p.inventory.setItemInMainHand(ItemStack(Material.AIR))
-                        p.playSound(
-                            Sound.sound(
-                                Key.key("entity.item.break"),
-                                Sound.Source.MASTER,1F,1F
-                            )
-                        )
-                        return
-                    }
-                }
-            }
-        }
     }
 }

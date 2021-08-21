@@ -1,6 +1,6 @@
 name: CustomEnchants
 main: com.koisv.customenchants.Main
-version: R1.1-SNAPSHOT
+version: R1.21-SNAPSHOT
 api-version: 1.17
 depend: [Kotlin]
 libraries:

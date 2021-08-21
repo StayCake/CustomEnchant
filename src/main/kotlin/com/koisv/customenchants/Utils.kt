@@ -2,11 +2,17 @@ package com.koisv.customenchants
 
 import com.koisv.customenchants.enchants.RangeHarvest
 import com.koisv.customenchants.enchants.RangeSoil
+import net.kyori.adventure.key.Key
+import net.kyori.adventure.sound.Sound
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.Damageable
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
 import java.util.stream.Collectors
@@ -57,6 +63,26 @@ class Utils {
                     }
                 }
                 return sb.toString()
+            }
+            fun itemUse(item: ItemStack,p: Player) {
+                val unbreaking = item.getEnchantmentLevel(Enchantment.DURABILITY)
+                if (Math.random() * 100 <= 100/(unbreaking + 1) && p.gameMode != GameMode.CREATIVE) {
+                    item.itemMeta = item.itemMeta.apply {
+                        if (this is Damageable) {
+                            damage += 1
+                            if (item.type.maxDurability <= damage) {
+                                p.inventory.setItemInMainHand(ItemStack(Material.AIR))
+                                p.playSound(
+                                    Sound.sound(
+                                        Key.key("entity.item.break"),
+                                        Sound.Source.MASTER,1F,1F
+                                    )
+                                )
+                                return
+                            }
+                        }
+                    }
+                }
             }
         }
     }

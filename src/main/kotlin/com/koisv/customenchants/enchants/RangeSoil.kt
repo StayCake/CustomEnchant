@@ -55,7 +55,8 @@ class RangeSoil : KoiEnchant {
         } else false
     }
 
-    companion object fun work(e: BlockPlaceEvent) {
+    override fun work(event: Any) {
+        val e = event as BlockPlaceEvent
         val p = e.player
         val imh = p.inventory.itemInMainHand
         val omh = p.inventory.itemInOffHand

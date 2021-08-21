@@ -12,6 +12,7 @@ interface KoiEnchant {
     val maxLevel: Int
     val minLevel: Int
     val canEnchant: List<Material>
+    fun work(event: Any)
     fun conflictWith(key: NamespacedKey): Boolean
     fun apply(item: ItemStack, level: Int) : Boolean
     fun displayName(level: Int): String {
